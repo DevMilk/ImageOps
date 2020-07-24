@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */   
+import keeptoo.ReverseImage;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,8 @@ import javax.swing.ImageIcon;
 import  keeptoo.KGradientPanel;
 import  keeptoo.KButton;
 import javax.swing.text.html.ImageView; 
+
+
 /**
  *
  * @author Ugur
