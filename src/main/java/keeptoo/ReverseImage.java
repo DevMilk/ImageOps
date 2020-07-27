@@ -43,7 +43,18 @@ public class ReverseImage extends RapidAPI{
         return nextPageUrl;
     }
     
-    
+    private int getDate(String URL){
+        Document doc = null;
+        try{
+            doc = Jsoup.connect(URL).userAgent(  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36").get();
+        } 
+        catch(Exception e){
+            e.printStackTrace();
+        }    
+        return 0;
+//        String json = doc.select("pre");
+        //final JSONObject obj = new JSONObject(json);
+    } 
     private Document getDocument(String URL){
         Document doc = null; 
         try{

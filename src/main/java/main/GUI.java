@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */   
+package main;
 import keeptoo.ReverseImage;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -22,7 +23,7 @@ import javax.swing.ImageIcon;
 import  keeptoo.KGradientPanel;
 import  keeptoo.KButton;
 import javax.swing.text.html.ImageView; 
-
+import main.Login;
 
 /**
  *
@@ -470,12 +471,13 @@ public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                String API_KEY = "b4176007bbmsh019a5302dfbf37ep128a44jsne61077ecbeee";
+                 
+              /*  String API_KEY = "b4176007bbmsh019a5302dfbf37ep128a44jsne61077ecbeee";
                 ReverseImage imageAgent = new ReverseImage(API_KEY);
                 String imagePath = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png";
                 imageAgent.findByURL(imagePath);
                 String result = imageAgent.getResponse(imagePath);
-                System.out.println(result);
+                System.out.println(result);*/
                 
                 
                 JFrame frame = new JFrame("Testing");
@@ -485,7 +487,7 @@ public static void main(String[] args) {
                 
                 //Bunu kullanmadım, Indicator. java şu an bir işe yramıyor  
                 
-                GUI GUI = new GUI(frame);
+                Login GUI = new Login( frame);
                 frame.add(GUI);
                 
                 frame.pack();
