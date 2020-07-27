@@ -65,7 +65,6 @@ public class GUI extends JPanel {
         kGradientPanel7 = new keeptoo.KGradientPanel();
         kGradientPanel4 = new keeptoo.KGradientPanel();
         kGradientPanel10 = new keeptoo.KGradientPanel();
-        jFileChooser1 = new javax.swing.JFileChooser();
         kGradientPanel6 = new keeptoo.KGradientPanel();
         Content2 = new javax.swing.JPanel();
         kGradientPanel5 = new keeptoo.KGradientPanel();
@@ -225,7 +224,7 @@ public class GUI extends JPanel {
         kGradientPanel7.setLayout(kGradientPanel7Layout);
         kGradientPanel7Layout.setHorizontalGroup(
             kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
         kGradientPanel7Layout.setVerticalGroup(
             kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +245,7 @@ public class GUI extends JPanel {
         kGradientPanel4.setLayout(kGradientPanel4Layout);
         kGradientPanel4Layout.setHorizontalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
         kGradientPanel4Layout.setVerticalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +266,7 @@ public class GUI extends JPanel {
         kGradientPanel10.setLayout(kGradientPanel10Layout);
         kGradientPanel10Layout.setHorizontalGroup(
             kGradientPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
         kGradientPanel10Layout.setVerticalGroup(
             kGradientPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +274,6 @@ public class GUI extends JPanel {
         );
 
         Content1.add(kGradientPanel10);
-        Content1.add(jFileChooser1);
 
         kGradientPanel6.setBackground(new java.awt.Color(38, 31, 70));
         kGradientPanel6.setkBorderRadius(0);
@@ -289,7 +287,7 @@ public class GUI extends JPanel {
         kGradientPanel6.setLayout(kGradientPanel6Layout);
         kGradientPanel6Layout.setHorizontalGroup(
             kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
         kGradientPanel6Layout.setVerticalGroup(
             kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +470,14 @@ public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                System.out.println("OBAA");
+                String API_KEY = "b4176007bbmsh019a5302dfbf37ep128a44jsne61077ecbeee";
+                ReverseImage imageAgent = new ReverseImage(API_KEY);
+                String imagePath = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png";
+                imageAgent.findByURL(imagePath);
+                String result = imageAgent.getResponse(imagePath);
+                System.out.println(result);
+                
+                
                 JFrame frame = new JFrame("Testing");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setUndecorated(true);
@@ -501,7 +506,6 @@ public static void main(String[] args) {
     private javax.swing.JLabel K;
     private javax.swing.JLabel MaximizeBtn;
     private javax.swing.JLabel MinimizeBtn;
-    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private keeptoo.KButton kButton1;

@@ -288,7 +288,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="425" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -320,7 +320,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="425" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -352,7 +352,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="425" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -362,8 +362,6 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JFileChooser" name="jFileChooser1">
-        </Component>
         <Container class="keeptoo.KGradientPanel" name="kGradientPanel6">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -386,7 +384,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="425" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
