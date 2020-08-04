@@ -8,11 +8,8 @@
  *
  * @author Ugur
  */  
-package keeptoo;  
+package main;  
 import java.util.ArrayList;
-import keeptoo.RapidAPI;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import org.jsoup.Jsoup;
@@ -42,23 +39,12 @@ public class ReverseImage extends RapidAPI{
         } 
         return nextPageUrl;
     }
-    
-    private int getDate(String URL){
-        Document doc = null;
-        try{
-            doc = Jsoup.connect(URL).userAgent(  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36").get();
-        } 
-        catch(Exception e){
-            e.printStackTrace();
-        }    
-        return 0;
-//        String json = doc.select("pre");
-        //final JSONObject obj = new JSONObject(json);
-    } 
+     
     private Document getDocument(String URL){
         Document doc = null; 
         try{
-            doc = Jsoup.connect(URL).userAgent(  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36").get();
+            doc = Jsoup.connect(URL).userAgent(  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36").timeout(20*1000).get();
+             
         } 
         catch(Exception e){
             e.printStackTrace();
@@ -66,11 +52,11 @@ public class ReverseImage extends RapidAPI{
         return doc;
     }
     
-    
-    private ArrayList<String> GetURLList(String Response){
+    //Timeout olabiliyor onu 
+    private ArrayList<String> GetURLList(String Response, int depth){
         ArrayList<String> urlList = new ArrayList<String>();
         String pageURL = Response;       
-        
+        int counter = 0;
         do{
             Document doc = getDocument(pageURL); 
            
@@ -78,35 +64,28 @@ public class ReverseImage extends RapidAPI{
             for(Element e: elements) 
                 urlList.add(e.attr("href"));
             pageURL = getNextPageUrl(doc);
-            
-        }while(pageURL!=null);
+            counter++;
+        }while(pageURL!=null && (counter <=depth || depth==-1));
          
         return urlList;
     }
-    
-    private String getOldest(ArrayList<String> URLList){
-        //#pnnext -> href : sonraki sonuc sayfası,
-        //#pnnext bulunmayana dek: sayfadaki urlleri listeye at ve sonraki url'ye geç 
-        //.r a -> href: listeler
-        
-        return null;
-    }
-    public String findByLocalFile(String ImagePath){
+     
+    public ArrayList<String> findByLocalFile(String ImagePath,int depth){
         String urlFile  = Upload(ImagePath);
-        String Response = getResponse(urlFile);
-        String OldestURL = getOldest(GetURLList(Response));
-        return OldestURL;
+        String Response = getResponse(urlFile); 
+        String rootURL = parseResponse(Response);
+        ArrayList<String> urlList = GetURLList(rootURL,depth ); 
+        return urlList; 
     }
     private String parseResponse(String Response){
         final JSONObject obj = new JSONObject(Response);
         return obj.getString("googleSearchResult");
     }
-    public String findByURL(String ImagePath){
+    public ArrayList<String> findByURL(String ImagePath, int depth ){
         String Response = getResponse(ImagePath);
         String rootURL = parseResponse(Response);
-        ArrayList<String> urlList = GetURLList(rootURL);
-        String OldestURL = getOldest(urlList);
-        return OldestURL;
+        ArrayList<String> urlList = GetURLList(rootURL, depth); 
+        return urlList;
     }
   
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package keeptoo;
+package main;
 
 import java.util.ArrayList;
 import okhttp3.OkHttpClient;
@@ -15,9 +15,9 @@ import okhttp3.Response;
  * @author Ugur
  */
 public class RapidAPI {
-     private String API_KEY; 
-    private String Host; 
-    private String prefix; 
+    protected String API_KEY; 
+    protected String Host; 
+    protected String prefix; 
     public RapidAPI(String API_KEY, String Host ,String prefix ){
         this.API_KEY = API_KEY; 
         this.Host = Host;
@@ -25,11 +25,11 @@ public class RapidAPI {
     }
       
     
-    public String getResponse(String ImageURL){
+    public String getResponse(String Request){
         OkHttpClient client = new OkHttpClient();
-        
+        System.out.println(prefix+Request);
         Request request = new Request.Builder()
-	.url(prefix + ImageURL)
+	.url(prefix + Request)
 	.get()
 	.addHeader("x-rapidapi-host", this.Host) 
 	.addHeader("x-rapidapi-key", this.API_KEY)
@@ -42,7 +42,7 @@ public class RapidAPI {
         catch(Exception e){
             e.printStackTrace();
         } 
-        if(response.code() == 200){
+        if(response!= null && response.code() == 200){
             System.out.println("Sorun Yok");
         } 
         

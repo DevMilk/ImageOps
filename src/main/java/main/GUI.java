@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */   
 package main;
-import keeptoo.ReverseImage;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -24,7 +23,7 @@ import  keeptoo.KGradientPanel;
 import  keeptoo.KButton;
 import javax.swing.text.html.ImageView; 
 import main.Login;
-
+import main.SYSTRAN_IO;
 /**
  *
  * @author Ugur
@@ -467,19 +466,47 @@ public class GUI extends JPanel {
     private void kButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_kButton3ActionPerformed
-public static void main(String[] args) {
+    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list) 
+    { 
+  
+        // Create a new ArrayList 
+        ArrayList<T> newList = new ArrayList<T>(); 
+  
+        // Traverse through the first list 
+        for (T element : list) { 
+  
+            // If this element is not present in newList 
+            // then add it 
+            if (!newList.contains(element)) { 
+  
+                newList.add(element); 
+            } 
+        } 
+  
+        // return the new list 
+        return newList; 
+    } 
+    
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                 
-              /*  String API_KEY = "b4176007bbmsh019a5302dfbf37ep128a44jsne61077ecbeee";
+                String API_KEY = "b4176007bbmsh019a5302dfbf37ep128a44jsne61077ecbeee";
+               
                 ReverseImage imageAgent = new ReverseImage(API_KEY);
-                String imagePath = "https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png";
-                imageAgent.findByURL(imagePath);
-                String result = imageAgent.getResponse(imagePath);
-                System.out.println(result);*/
-                
-                
+                TextAnalyzer textAnalizer = new TextAnalyzer(API_KEY);
+                String imagePath = "https://i.sozcu.com.tr/wp-content/uploads/2020/05/05/iecrop/elon-musk-depo_16_9_1588676272-880x495.jpg";
+                ArrayList<String> list = imageAgent.findByURL(imagePath,1);   
+                ArrayList<String> persons = new ArrayList<String>();
+                list = removeDuplicates(list); 
+                list.removeIf(s -> s.contains("https://webcache.googleusercontent.com/search?q"));
+                list.remove("#");
+                for(String url: list ){
+                    ArrayList<String> temp = textAnalizer.getPersons(url);
+                    if(temp!=null)
+                        persons.addAll(temp); 
+                } 
+                System.out.println(persons.get(0));
                 JFrame frame = new JFrame("Testing");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setUndecorated(true);
