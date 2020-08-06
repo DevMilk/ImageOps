@@ -72,6 +72,7 @@ public class GUI extends JPanel {
         kGradientPanel5 = new keeptoo.KGradientPanel();
         jPanel1 = new javax.swing.JPanel();
         kGradientPanel3 = new keeptoo.KGradientPanel();
+        K = new javax.swing.JLabel();
         K1 = new javax.swing.JLabel();
         URLField = new javax.swing.JTextField();
         SearchButton = new keeptoo.KButton();
@@ -250,6 +251,10 @@ public class GUI extends JPanel {
         kGradientPanel3.setkTransparentControls(false);
         kGradientPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        K.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Image.png"))); // NOI18N
+        K.setText("              ");
+        kGradientPanel3.add(K, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 50, 40));
+
         K1.setForeground(new java.awt.Color(255, 255, 255));
         K1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-search-40.png"))); // NOI18N
         K1.setText(" ");
@@ -383,6 +388,8 @@ public class GUI extends JPanel {
 
         jPanel1.add(Table, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 220, 510));
 
+        jPanel2.setLayout(null);
+
         ImageDisplayPanel.setBackground(new java.awt.Color(38, 31, 70));
         ImageDisplayPanel.setkBorderRadius(0);
         ImageDisplayPanel.setkEndColor(new java.awt.Color(0, 153, 153));
@@ -390,29 +397,16 @@ public class GUI extends JPanel {
         ImageDisplayPanel.setkStartColor(new java.awt.Color(38, 31, 70));
         ImageDisplayPanel.setkTransparentControls(false);
         ImageDisplayPanel.setPreferredSize(new java.awt.Dimension(500, 500));
-        ImageDisplayPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        ImageDisplayPanel.setLayout(null);
 
         ImageDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ImageDisplay.setText("     ");
         ImageDisplay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ImageDisplayPanel.add(ImageDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        ImageDisplayPanel.add(ImageDisplay);
+        ImageDisplay.setBounds(0, 0, 15, 14);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImageDisplayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ImageDisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
-        );
+        jPanel2.add(ImageDisplayPanel);
+        ImageDisplayPanel.setBounds(10, 11, 510, 268);
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 530, 290));
 
@@ -660,22 +654,25 @@ public class GUI extends JPanel {
                 w = (int)(ratio*h);
             }
                 
-            Image dimg = image.getScaledInstance(pw , ph  ,
+            Image dimg = image.getScaledInstance(w , h  ,
         Image.SCALE_SMOOTH);
             ImageDisplay.setIcon(new ImageIcon(dimg));
+            int x = ImageDisplay.getLocation().x;
+            int y = ImageDisplay.getLocation().y;
+            ImageDisplay.setBounds(x+pw/2-w/2, y, w, h);  
         }
         catch(Exception e){
             e.printStackTrace();
             System.out.println("Görüntü Yüklenemedi");
         } 
         
-        /*ArrayList<String> persons = getPersonNames(URL);
+        ArrayList<String> persons = getPersonNames(URL);
             
         Result1.setText(persons.get(0));
         Result2.setText(persons.get(1));
         Result3.setText(persons.get(2));
         Result4.setText(persons.get(3));
-        Result5.setText(persons.get(4));*/
+        Result5.setText(persons.get(4));
            
     }//GEN-LAST:event_SearchButtonActionPerformed
 
@@ -738,6 +735,7 @@ public class GUI extends JPanel {
     private static javax.swing.JPanel Content3;
     private javax.swing.JLabel ImageDisplay;
     private keeptoo.KGradientPanel ImageDisplayPanel;
+    private javax.swing.JLabel K;
     private javax.swing.JLabel K1;
     private javax.swing.JLabel MaximizeBtn;
     private javax.swing.JLabel MinimizeBtn;
