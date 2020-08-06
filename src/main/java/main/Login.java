@@ -177,14 +177,14 @@ public class Login extends JPanel {
 
             //Bunu kullanmadım, Indicator. java şu an bir işe yramıyor  
 
-            GUI GUI = new GUI( frame);
+/*            GUI GUI = new GUI( frame);
             frame.add(GUI);
 
             frame.pack();
             frame.setLocationRelativeTo(null);
             UIManager.put("JFrame.activeTitleBackground", Color.red);
 
-            frame.setVisible(true); 
+            frame.setVisible(true); */
         }
     }//GEN-LAST:event_kButton1ActionPerformed
 

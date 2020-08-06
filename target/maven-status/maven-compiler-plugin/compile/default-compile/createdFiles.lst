@@ -1,5 +1,6 @@
 main\GUI$1.class
 keeptoo\KButton$1.class
+main\GUI$13.class
 keeptoo\Drag.class
 main\GUI$3.class
 main\GUI$8.class
@@ -11,10 +12,12 @@ main\Login$4.class
 main\GUI$9.class
 main\SYSTRAN_IO.class
 main\TextAnalyzer.class
+main\GUI$11.class
 main\GUI$6.class
 main\RapidAPI.class
 main\Login$1.class
 main\GUI$7.class
+main\GUI$12.class
 main\GUI$2.class
 main\GUI.class
 keeptoo\KButton.class

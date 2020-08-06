@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 package main;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import org.json.JSONObject;
-import org.json.JSONArray;
-import org.json.JSONException;
+ 
+import java.util.ArrayList;  
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
+import org.json.JSONObject; 
 import java.util.regex.*;  
 /**
  *
@@ -43,7 +42,7 @@ public class TextAnalyzer extends RapidAPI{
             return null;
         }
         JSONObject entities = obj.getJSONObject("Entities"); 
-        System.out.println(entities.toString());
+       // System.out.println(entities.toString());
         Pattern p = Pattern.compile("\\'([^\\']*)\\'\\,\\ \\'PERSON'");
         Matcher m = p.matcher(entities.toString());
         while (m.find()) {
@@ -51,4 +50,26 @@ public class TextAnalyzer extends RapidAPI{
         }
         return persons;
         }
+    public ArrayList<String> getPersons(ArrayList<String> URLs){
+        
+        ArrayList<String> persons = new ArrayList<>();
+        TreeMap<String,Integer> PersonsWFreq = new TreeMap<>();
+        for(String URL: URLs) {
+            ArrayList<String> personsAtURL = getPersons(URL);
+            if(personsAtURL!=null)
+                personsAtURL.forEach(Person -> {
+                    PersonsWFreq.merge(Person, 1, Integer::sum);
+                });  
+        }
+        
+        // Yüzdeliklerle göndermek için fonksiyonun dönüş tipi Map olmalı, döndürmesek mi?
+        PersonsWFreq.entrySet()
+            .stream()
+            .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+            .forEach(entry -> { 
+            persons.add(entry.getKey());
+        });
+         
+        return persons;
+    }
 }

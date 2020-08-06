@@ -26,8 +26,7 @@ public class RapidAPI {
       
     
     public String getResponse(String Request){
-        OkHttpClient client = new OkHttpClient();
-        System.out.println(prefix+Request);
+        OkHttpClient client = new OkHttpClient(); 
         Request request = new Request.Builder()
 	.url(prefix + Request)
 	.get()
