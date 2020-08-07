@@ -17,7 +17,12 @@ import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javax.imageio.ImageIO;
+import javax.swing.ProgressMonitor;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
 /**
  *
  * @author Ugur
@@ -39,6 +44,8 @@ public class GUI extends JPanel {
         this.frame = frame;
         this.textAnalizer =  textAnalizer;
         this.imageAgent = imageAgent;
+        Bar.setValue(0);
+        DepthSlider.setValue(1);
     } 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,14 +54,22 @@ public class GUI extends JPanel {
      */
     @SuppressWarnings("unchecked")
     private ArrayList<String> getPersonNames(String URL){
-        ArrayList<String> list = imageAgent.findByURL(URL,1);   
+        ArrayList<String> list = imageAgent.findByURL(URL,DepthSlider.getValue());   
         list = removeDuplicates(list); 
         list.removeIf(s -> s.contains("https://webcache.googleusercontent.com/search?q"));
         list.remove("#");
-        ArrayList<String> persons = textAnalizer.getPersons(list);  
         
-        System.out.println(persons.get(0));
-        return persons;        
+        if(list==null){
+            Message.setText("Can't Find Any Source");
+            return null;
+        } 
+        String EntityType = SearchType2.getSelectedItem().toString();
+        ArrayList<String> entities = textAnalizer.getEntities(list,Bar,EntityType, SearchType.getSelectedItem().toString().equals("PARALLEL"));  
+        
+        if(entities.size()==0) 
+            Message.setText("Can't find any "+EntityType+" type entity.");
+          
+        return entities;        
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -90,6 +105,11 @@ public class GUI extends JPanel {
         jPanel2 = new javax.swing.JPanel();
         ImageDisplayPanel = new keeptoo.KGradientPanel();
         ImageDisplay = new javax.swing.JLabel();
+        Bar = new javax.swing.JProgressBar();
+        DepthSlider = new javax.swing.JSlider();
+        SearchType = new javax.swing.JComboBox<>();
+        SearchType2 = new javax.swing.JComboBox<>();
+        Message = new javax.swing.JLabel();
         Content1 = new javax.swing.JPanel();
         kGradientPanel7 = new keeptoo.KGradientPanel();
         kGradientPanel4 = new keeptoo.KGradientPanel();
@@ -262,13 +282,13 @@ public class GUI extends JPanel {
 
         jPanel1.add(kGradientPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 40));
 
-        URLField.setText("Enter Image URL");
+        URLField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Image URL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("OCR A Extended", 0, 14))); // NOI18N
         URLField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 URLFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(URLField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, 420, 30));
+        jPanel1.add(URLField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 420, 50));
 
         SearchButton.setBorder(null);
         SearchButton.setText("Search");
@@ -290,7 +310,7 @@ public class GUI extends JPanel {
                 SearchButtonKeyPressed(evt);
             }
         });
-        jPanel1.add(SearchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 490, -1, -1));
+        jPanel1.add(SearchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 510, 150, 30));
 
         Table.setBackground(new java.awt.Color(38, 31, 70));
         Table.setkBorderRadius(0);
@@ -310,7 +330,7 @@ public class GUI extends JPanel {
         ResultPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
         ResultPanel1.setLayout(null);
 
-        Result1.setFont(new java.awt.Font("OCR A Extended", 1, 24)); // NOI18N
+        Result1.setFont(new java.awt.Font("OCR A Extended", 1, 18)); // NOI18N
         Result1.setForeground(new java.awt.Color(255, 255, 255));
         Result1.setText(" ");
         ResultPanel1.add(Result1);
@@ -327,7 +347,7 @@ public class GUI extends JPanel {
         ResultPanel2.setPreferredSize(new java.awt.Dimension(500, 500));
         ResultPanel2.setLayout(null);
 
-        Result2.setFont(new java.awt.Font("OCR A Extended", 1, 24)); // NOI18N
+        Result2.setFont(new java.awt.Font("OCR A Extended", 1, 18)); // NOI18N
         Result2.setForeground(new java.awt.Color(255, 255, 255));
         Result2.setText(" ");
         ResultPanel2.add(Result2);
@@ -344,7 +364,7 @@ public class GUI extends JPanel {
         ResultPanel3.setPreferredSize(new java.awt.Dimension(500, 500));
         ResultPanel3.setLayout(null);
 
-        Result3.setFont(new java.awt.Font("OCR A Extended", 1, 24)); // NOI18N
+        Result3.setFont(new java.awt.Font("OCR A Extended", 1, 18)); // NOI18N
         Result3.setForeground(new java.awt.Color(255, 255, 255));
         Result3.setText(" ");
         ResultPanel3.add(Result3);
@@ -361,7 +381,7 @@ public class GUI extends JPanel {
         ResultPanel4.setPreferredSize(new java.awt.Dimension(500, 500));
         ResultPanel4.setLayout(null);
 
-        Result4.setFont(new java.awt.Font("OCR A Extended", 1, 24)); // NOI18N
+        Result4.setFont(new java.awt.Font("OCR A Extended", 1, 18)); // NOI18N
         Result4.setForeground(new java.awt.Color(255, 255, 255));
         Result4.setText(" ");
         ResultPanel4.add(Result4);
@@ -378,7 +398,7 @@ public class GUI extends JPanel {
         ResultPanel5.setPreferredSize(new java.awt.Dimension(500, 500));
         ResultPanel5.setLayout(null);
 
-        Result5.setFont(new java.awt.Font("OCR A Extended", 1, 24)); // NOI18N
+        Result5.setFont(new java.awt.Font("OCR A Extended", 1, 18)); // NOI18N
         Result5.setForeground(new java.awt.Color(255, 255, 255));
         Result5.setText(" ");
         ResultPanel5.add(Result5);
@@ -388,6 +408,7 @@ public class GUI extends JPanel {
 
         jPanel1.add(Table, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 220, 510));
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Image", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("OCR A Extended", 0, 14))); // NOI18N
         jPanel2.setLayout(null);
 
         ImageDisplayPanel.setBackground(new java.awt.Color(38, 31, 70));
@@ -406,9 +427,43 @@ public class GUI extends JPanel {
         ImageDisplay.setBounds(0, 0, 15, 14);
 
         jPanel2.add(ImageDisplayPanel);
-        ImageDisplayPanel.setBounds(10, 11, 510, 268);
+        ImageDisplayPanel.setBounds(10, 30, 510, 268);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 530, 290));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 530, 310));
+
+        Bar.setBackground(new java.awt.Color(255, 255, 255));
+        Bar.setForeground(new java.awt.Color(0, 153, 153));
+        jPanel1.add(Bar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 390, 420, 20));
+
+        DepthSlider.setMajorTickSpacing(4);
+        DepthSlider.setMaximum(20);
+        DepthSlider.setMinimum(1);
+        DepthSlider.setMinorTickSpacing(2);
+        DepthSlider.setPaintLabels(true);
+        DepthSlider.setPaintTicks(true);
+        DepthSlider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search Depth", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("OCR A Extended", 0, 14))); // NOI18N
+        jPanel1.add(DepthSlider, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 480, 160, 60));
+
+        SearchType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NORMAL (Recommended)", "PARALLEL" }));
+        SearchType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchTypeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(SearchType, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, 150, 20));
+
+        SearchType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PERSON", "ORG", "LOC", "DATE", "PRODUCT", "LAW" }));
+        SearchType2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchType2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(SearchType2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 480, 90, 60));
+
+        Message.setForeground(new java.awt.Color(0, 153, 153));
+        Message.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Message.setText("  ");
+        jPanel1.add(Message, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 530, 30));
 
         javax.swing.GroupLayout kGradientPanel5Layout = new javax.swing.GroupLayout(kGradientPanel5);
         kGradientPanel5.setLayout(kGradientPanel5Layout);
@@ -567,6 +622,7 @@ public class GUI extends JPanel {
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         else
             frame.setExtendedState(JFrame.NORMAL);
+      
     }//GEN-LAST:event_Maximize
 
     private void Minimize(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Minimize
@@ -633,52 +689,67 @@ public class GUI extends JPanel {
     private void URLFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_URLFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_URLFieldActionPerformed
+    class DisplayImage implements Runnable{
+        private String URL; 
+        public DisplayImage(String URL){
+            this.URL = URL;
+        }
+        public void run(){
+            
+            try{
+                URL url = new URL(URL);
+                BufferedImage image = ImageIO.read(url);
+                int w = image.getWidth();
+                int h = image.getHeight();
+                float ratio = (float)w/(float)h;
+                int pw =ImageDisplayPanel.getWidth();
+                int ph = ImageDisplayPanel.getHeight(); 
+                if(w>h){
+                    w = pw;
+                    h = (int)(ratio/w);
+                }
+                else{
+                    h = ph;
+                    w = (int)(ratio*h);
+                }
 
+                Image dimg = image.getScaledInstance(w , h  ,
+            Image.SCALE_SMOOTH);
+                ImageDisplay.setIcon(new ImageIcon(dimg)); 
+                ImageDisplay.setBounds(pw/2-w/2, 0, w, h);  
+            }
+            catch(Exception e){ 
+                System.out.println("Görüntü Yüklenemedi");
+            } 
+        }
+        
+    }
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
         // TODO add your handling code here:
+        Bar.setValue(0);
         String URL = URLField.getText();
-        try{
-            URL url = new URL(URL);
-            BufferedImage image = ImageIO.read(url);
-            int w = image.getWidth();
-            int h = image.getHeight();
-            float ratio = (float)w/(float)h;
-            int pw =ImageDisplayPanel.getWidth();
-            int ph = ImageDisplayPanel.getHeight(); 
-            if(w>h){
-                w = pw;
-                h = (int)(ratio/w);
-            }
-            else{
-                h = ph;
-                w = (int)(ratio*h);
-            }
-                
-            Image dimg = image.getScaledInstance(w , h  ,
-        Image.SCALE_SMOOTH);
-            ImageDisplay.setIcon(new ImageIcon(dimg));
-            int x = ImageDisplay.getLocation().x;
-            int y = ImageDisplay.getLocation().y;
-            ImageDisplay.setBounds(x+pw/2-w/2, y, w, h);  
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            System.out.println("Görüntü Yüklenemedi");
+        new DisplayImage(URL).run();
+        ArrayList<String> persons = getPersonNames(URL );
+        if(persons!=null){    
+            Result1.setText(persons.get(0));
+            Result2.setText(persons.get(1));
+            Result3.setText(persons.get(2));
+            Result4.setText(persons.get(3));
+            Result5.setText(persons.get(4));
         } 
-        
-        ArrayList<String> persons = getPersonNames(URL);
-            
-        Result1.setText(persons.get(0));
-        Result2.setText(persons.get(1));
-        Result3.setText(persons.get(2));
-        Result4.setText(persons.get(3));
-        Result5.setText(persons.get(4));
-           
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     private void SearchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchButtonKeyPressed
         
     }//GEN-LAST:event_SearchButtonKeyPressed
+
+    private void SearchTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchTypeActionPerformed
+
+    private void SearchType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchType2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchType2ActionPerformed
     public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list) 
     { 
   
@@ -723,21 +794,35 @@ public class GUI extends JPanel {
                 UIManager.put("JFrame.activeTitleBackground", Color.red);
                 
                 frame.setVisible(true); 
+                
+                Bar.addChangeListener(  new javax.swing.event.ChangeListener() {
+      public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        javax.swing.JProgressBar  cc = (javax.swing.JProgressBar) evt.getSource();
+        int value = cc.getValue();
+        int min = cc.getMinimum();
+        int max = cc.getMaximum(); 
+        Bar.paintImmediately(Bar.getVisibleRect()); 
+      }
+ 
+    });
 
             }
         });
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JProgressBar Bar;
     private javax.swing.JLabel Closebtn;
     public static javax.swing.JPanel Content1;
     private static javax.swing.JPanel Content2;
     private static javax.swing.JPanel Content3;
+    private javax.swing.JSlider DepthSlider;
     private javax.swing.JLabel ImageDisplay;
     private keeptoo.KGradientPanel ImageDisplayPanel;
     private javax.swing.JLabel K;
     private javax.swing.JLabel K1;
     private javax.swing.JLabel MaximizeBtn;
+    private javax.swing.JLabel Message;
     private javax.swing.JLabel MinimizeBtn;
     private javax.swing.JLabel Result1;
     private javax.swing.JLabel Result2;
@@ -750,6 +835,8 @@ public class GUI extends JPanel {
     private keeptoo.KGradientPanel ResultPanel4;
     private keeptoo.KGradientPanel ResultPanel5;
     private keeptoo.KButton SearchButton;
+    private javax.swing.JComboBox<String> SearchType;
+    private javax.swing.JComboBox<String> SearchType2;
     private keeptoo.KGradientPanel Table;
     private javax.swing.JTextField URLField;
     private javax.swing.JLayeredPane jLayeredPane1;
