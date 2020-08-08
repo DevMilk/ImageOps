@@ -296,10 +296,13 @@ public class GUI extends JPanel {
         SearchButton.setkBackGroundColor(new java.awt.Color(255, 255, 255));
         SearchButton.setkBorderRadius(2);
         SearchButton.setkEndColor(new java.awt.Color(0, 0, 0));
-        SearchButton.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        SearchButton.setkHoverColor(new java.awt.Color(0, 153, 153));
+        SearchButton.setkHoverEndColor(new java.awt.Color(0, 153, 153));
         SearchButton.setkHoverForeGround(new java.awt.Color(0, 0, 0));
-        SearchButton.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        SearchButton.setkHoverStartColor(new java.awt.Color(0, 153, 153));
+        SearchButton.setkPressedColor(new java.awt.Color(0, 153, 153));
         SearchButton.setkSelectedColor(new java.awt.Color(255, 255, 255));
+        SearchButton.setMultiClickThreshhold(4L);
         SearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchButtonActionPerformed(evt);
@@ -776,7 +779,7 @@ public class GUI extends JPanel {
             @Override
             public void run() {
                
-                
+                new Tests();
                 String API_KEY = "b4176007bbmsh019a5302dfbf37ep128a44jsne61077ecbeee"; 
                 JFrame frame = new JFrame("Testing");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
