@@ -80,7 +80,7 @@ It uses multiple APIs, Named Entity Recognition using Natural Language Processin
  
  ---
  
-### Elon Musk Image Search
+### Elon Musk Image, Person Entity Search
 ![alttext](screenshots/SS1.JPG)
 
 
