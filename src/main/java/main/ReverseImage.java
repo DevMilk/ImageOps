@@ -23,8 +23,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.apache.commons.io.FileUtils;
-import org.json.JSONObject;
-
+import org.json.JSONObject; 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -68,7 +67,7 @@ public class ReverseImage extends RapidAPI {
         
         //Check Response
         if (!(response != null && response.code() == 200)) {
-            throw new Exception("Upload Response null or failed");
+            throw new Exception("Upload Response null or failed, Check API Keys");
         }
         //Parse JSON Response and get link of the uploaded file 
         String responseBody = response.body().string();
@@ -105,18 +104,22 @@ public class ReverseImage extends RapidAPI {
         ArrayList<String> urlList = new ArrayList<String>();
         String pageURL = Response;
         int counter = 0;
-        do {
-            Document doc = getDocument(pageURL);
-            //Get url results of current google search page by executing css query 
-            Elements elements = doc.select(".g .rc .r a");
-            for (Element e : elements) {
-                //add href of html page elements
-                urlList.add(e.attr("href"));
-            }
-            pageURL = getNextPageUrl(doc);
-            counter++;
-        } while (pageURL != null && (counter <= depth || depth == -1));
-
+        try{
+            do {
+                Document doc = getDocument(pageURL);
+                //Get url results of current google search page by executing css query 
+                Elements elements = doc.select(".g .rc .r a");
+                for (Element e : elements) {
+                    //add href of html page elements
+                    urlList.add(e.attr("href"));
+                }
+                pageURL = getNextPageUrl(doc);
+                counter++;
+            } while (pageURL != null && (counter <= depth || depth == -1));
+        }
+        catch(Exception e){
+            System.out.println("Input is deprecated");
+        }
         return urlList;
     }
 
@@ -130,7 +133,7 @@ public class ReverseImage extends RapidAPI {
     public ArrayList<String> find(String ImagePath, int depth, String lang) {
 
         //If file is a local file, upload it first and get its URL    
-        if (Files.exists(Paths.get(ImagePath))) {
+        if ( new File(ImagePath).isDirectory() && Files.exists(Paths.get(ImagePath))) {
             try {
                 ImagePath = Upload(ImagePath);
             } catch (Exception e) {

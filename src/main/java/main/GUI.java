@@ -15,18 +15,12 @@ import java.awt.Toolkit;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;   
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.File; 
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import java.nio.file.Paths; 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.ProgressMonitor;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
+import javax.swing.JFileChooser;   
 import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
@@ -80,7 +74,7 @@ public class GUI extends JPanel {
     private ArrayList<String> getEntities(String URL){ 
         //Reset Message
         Message.setText("");
-        
+         
         //Scan webpage and get urls related to image
         ArrayList<String> list = imageAgent.find(URLField.getText(),DepthSlider.getValue(),Language.getSelectedItem().toString().split(" ")[1]);   
         //Remove Duplicates, google cache and unnecessary links for optimizing search 
@@ -537,7 +531,7 @@ public class GUI extends JPanel {
                 SearchButton1KeyPressed(evt);
             }
         });
-        jPanel1.add(SearchButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 420, 50, 50));
+        jPanel1.add(SearchButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 420, 50, 50));
 
         javax.swing.GroupLayout kGradientPanel5Layout = new javax.swing.GroupLayout(kGradientPanel5);
         kGradientPanel5.setLayout(kGradientPanel5Layout);
@@ -770,7 +764,7 @@ public class GUI extends JPanel {
                 BufferedImage image = null; 
                 
                 //Check if image is from web or local storage 
-                if(Files.exists(Paths.get(URL))){
+                if(new File(URL).isDirectory() && Files.exists(Paths.get(URL))){
                     image = ImageIO.read(new File(URL));
                 }
                 else{
@@ -803,7 +797,8 @@ public class GUI extends JPanel {
             }
             catch(Exception e){ 
                 e.printStackTrace();
-                System.out.println("Görüntü Yüklenemedi");
+                System.out.println("Image Cannot Be Displayed");
+                Message.setText("Image Cannot Be Displayed at Panel");
             } 
         }
         
@@ -899,8 +894,8 @@ public class GUI extends JPanel {
                 frame.setResizable(true);
                  
                 //Set necessary api keys
-                String Key1 = <YOUR_RAPID_API_KEY>;
-                String Key2 = <YOUR_IMGUR_CLIENT_ID>;
+                String Key1 = "YOUR_RAPIDAPI_KEY";
+                String Key2 = "YOUR_IMGUR_CLIENT_ID";
                 
                 //Initialize Graphical User Interface for frame
                 GUI GUI = new GUI( frame,Key1,Key2);

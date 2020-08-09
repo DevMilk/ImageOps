@@ -37,7 +37,7 @@ public class TextAnalyzer extends RapidAPI{
         TextEncoded = TextEncoded.replace("+","%2520"); 
         TextEncoded = TextEncoded.replace("%","%25"); */
        
-        //Get respın
+        //Get response 
         String Response = getResponse(URL);
         ArrayList<String> entityList = new ArrayList<String>(); 
         JSONObject obj = null;
@@ -45,7 +45,7 @@ public class TextAnalyzer extends RapidAPI{
             obj = new JSONObject(Response);  
         }
         catch(Exception e){
-            System.out.println("URL Encoding Error");
+            System.out.println("URL Encoding Warning");
             return null;
         }
         

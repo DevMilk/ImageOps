@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package main;
-
-import java.util.ArrayList;
+ 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
