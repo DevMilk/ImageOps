@@ -74,10 +74,13 @@ It uses multiple APIs, Named Entity Recognition using Natural Language Processin
 
 ## Screenshots
  
-Light Bulb Image, Person Entity Search 
+### Light Bulb Image, Person Entity Search 
+
 ![alttext](screenshots/SS2.JPG)
  
-Elon Musk Image Search
+ ---
+ 
+### Elon Musk Image Search
 ![alttext](screenshots/SS1.JPG)
 
 
