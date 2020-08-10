@@ -32,7 +32,7 @@ It uses multiple APIs, Named Entity Recognition using Natural Language Processin
       Spanish 
       
 * ### Search Depth
-  #### Ranges between 1-20. Indicates how detailed the search will be. The more detailed the search, the longer it takes
+  #### Ranges between 1-20. Indicates how detailed the search will be. The more detailed the search, the longer it takes. ( ~1 minute to ~20 minute)
 
 * ### Parallel Search Option 
   #### Indicates parallel processing and threading in search. (Still working on it, Not Fully Optimized)
