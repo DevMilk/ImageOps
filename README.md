@@ -67,7 +67,7 @@ It uses multiple APIs, Named Entity Recognition using Natural Language Processin
   #### Class for Testing software
   
 * ### KeepToo Package
-  #### Package for Gradient Colored gui components.
+  #### Package for Gradient Colored GUI components.
   Source: https://github.com/k33ptoo/KGradientPanel 
   
 ---
