@@ -1,4 +1,4 @@
-# ImageOpsMaven
+# ImageOps 
 *ImageOPS* is a Reverse Image Entity Search software written with Java using Maven, JavaFX and Java Swing. 
 
 It uses multiple APIs, Named Entity Recognition using Natural Language Processing, page parsing algorithms with css queries, regular expressions, http requests and data conversion algorithms to search entities along the web related to user given image and entity type and diplaying most mentioned entities.
