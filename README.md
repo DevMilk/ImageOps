@@ -7,7 +7,7 @@ It uses multiple APIs, Named Entity Recognition using Natural Language Processin
 ## Search Parameters
 
 * ### Image
-  #### Image can be selected from local storage or from given URL. Software can understand if passed path is URL or local storage path.
+  #### Image can be selected from local storage or from given URL.  Software can understand if passed path is URL or local storage path.
 
 * ### Entity Type 
   #### Entity type to search
